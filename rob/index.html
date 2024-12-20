@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merry Christmas!</title>
+    <link rel="shortcut icon" href="pics/tree.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(pics/bg.avif);
+            background-repeat: no-repeat;
+            background-size: cover;
+            animation: fadeIn 1.5s ease-in;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes snow {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0.8;
+            animation: snow 5s linear infinite;
+        }
+
+        h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 5rem;
+            color: #ff2e63;
+        }
+
+        .btn-primary {
+            border-color: #3a3a3a;
+            font-size: 1.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            background-color: #3a3d3b;
+        }
+
+        .btn-primary:hover {
+            background-color: #222020;
+            border-color: #3a3a3a;
+            box-shadow: 0 0 10px rgba(39, 39, 39, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        @media screen and (max-width: 767px) {
+            body {
+                background-image: url(pics/bg-phone.webp);
+                background-repeat: no-repeat;
+                background-size: cover;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-5">Merry Christmas!</h1>
+        <button class="btn btn-primary" id="showAlertBtn">Click Me</button>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <script>
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            snowflake.style.animationDuration = Math.random() * 3 + 2 + 's';
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        }
+
+        setInterval(createSnowflake, 200);
+
+        document.getElementById("showAlertBtn").addEventListener("click", function () {
+            Swal.fire({
+                title: 'What is your name?',
+                input: 'text',
+                inputPlaceholder: 'Enter your name',
+                confirmButtonText: 'Submit',
+                showCancelButton: true,
+                background: '#fff url("https://media.istockphoto.com/id/1281579368/vector/seamless-christmas-pattern-with-snowflakes.jpg?b=1&s=612x612&w=0&k=20&c=gmz7bOaS-yFDvGZ0PyLKUD3zFHRQsPimvlFUSkYXGs4=")',
+                backdrop: `
+                    rgba(0,0,123,0.4)
+                    url("pics/kawai.gif")
+                    top left / 200px 200px
+                    no-repeat
+                `
+            }).then((result) => {
+                if (result.isConfirmed && result.value) {
+                    let name = result.value.toLowerCase();
+                    let text = "Take care always";
+                    if (name === 'cathy' || name === 'cath' || name === 'catherine') {
+                        name = 'Madir'; 
+                        text = "Ingat po kayo lagi Love you!!";
+                    }
+                
+                    Swal.fire({
+                        title: `Merry Christmas, ${name}!`,
+                        html: `<p>Wishing you joy and happiness this holiday season! <br> ${text} </p> <img src="pics/cute.gif" alt="Merry Christmas GIF" style="width: 100%; max-width: 400px; border-radius: 10px;">`,
+                        confirmButtonText: 'Thanks!',
+                        background: '#fff',
+                        customClass: {
+                            title: 'fs-2',
+                            htmlContainer: 'text-center'
+                        }
+                    });
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
